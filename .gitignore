@@ -1,0 +1,16 @@
+
+.vs/TestFunction/v14/.suo
+TestFunction.sln
+*.db
+*.opendb
+*.obj
+*.enc
+*.log
+*.tlog
+*.pdb
+*.idb
+*.vcxproj
+*.filters
+*.user
+*.exe
+*.ilk
