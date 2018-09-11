@@ -1,6 +1,5 @@
 #include "LinkedList.h"
 
-#define NULL (void*)0
 
 
 /*
@@ -32,34 +31,6 @@ void deleteNode(struct ListNode* node)
 	node->next = node->next->next;
 }
 
-/*
-203. Remove Linked List Elements
-Remove all elements from a linked list of integers that have value val.
-Example:
-Input:  1->2->6->3->4->5->6, val = 6
-Output: 1->2->3->4->5
-*/
-struct ListNode* removeElements(struct ListNode* head, int val) 
-{
-	/*		*** Really poweful solution ***		
-	if (head == null) return null;
-	head.next = removeElements(head.next, val);
-	return head.val == val ? head.next : head;
-	*/
-
-	struct ListNode *curr_node = head;
-	struct ListNode *next_node = head->next;
-	while (next_node != NULL)
-	{
-		if (next_node->val == val)
-			curr_node->next = next_node->next;
-		else
-			curr_node = next_node;
-		next_node = next_node->next;
-	}
-	return head;
-
-}
 /*
 876. Middle of the Linked List
 
@@ -96,7 +67,7 @@ Output: 5->4->3->2->1->NULL
 Follow up:
 A linked list can be reversed either iteratively or recursively. Could you implement both?
 */
-struct ListNode* reverseList(struct ListNode* head) 
+struct ListNode* reverseList(struct ListNode* head) // can use one less variable
 {
 	struct ListNode *pre_node = (struct ListNode*)NULL;
 	struct ListNode *curr_node = head;
@@ -113,11 +84,10 @@ struct ListNode* reverseList(struct ListNode* head)
 /*
 83. Remove Duplicates from Sorted List
 Given a sorted linked list, delete all duplicates such that each element appear only once.
-Example 1:
+
 Input: 1->1->2
 Output: 1->2
 
-Example 2:
 Input: 1->1->2->3->3
 Output: 1->2->3
 */
@@ -151,13 +121,12 @@ struct ListNode* deleteDuplicates(struct ListNode* head)
 Merge two sorted linked lists and return it as a new list. 
 The new list should be made by splicing together the nodes of the first two lists.
 
-Example:
 Input: 1->2->4, 1->3->4
 Output: 1->1->2->3->4->4
 */
 struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) //*
 {
-/*	**Recursive			
+/*		**Recursive			
 	if (l1 == NULL)
 		return l2;
 	else if (l2 == NULL)
@@ -174,11 +143,24 @@ struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) //*
 	}
 */
 
-	struct ListNode *head = (struct ListNode*)NULL;
+/*		**Iterative		*/
+	//struct ListNode *head = (struct ListNode*)NULL;
+	struct ListNode* head = (struct ListNode*)malloc(sizeof(struct ListNode));
 	struct ListNode *curr_node = head;
-	while (l1 != NULL && l2 != NULL)
+	head->next = (struct ListNode*)NULL;
+	while (l1 != NULL || l2 != NULL)
 	{
-		if (l1->val < l2->val)
+		if (l1 == NULL)
+		{
+			curr_node->next = l2;
+			break;
+		}
+		else if (l2 == NULL)
+		{
+			curr_node->next = l1;
+			break;
+		}
+		else if (l1->val <= l2->val)
 		{
 			curr_node->next = l1;
 			l1 = l1->next;
@@ -192,4 +174,110 @@ struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) //*
 	}
 	return head->next;
 
+}
+/*
+141. Linked List Cycle
+Given a linked list, determine if it has a cycle in it.
+*/
+bool hasCycle(struct ListNode *head) 
+{
+	if (!head)
+		return false;
+	struct ListNode *fast = head;
+	struct ListNode *slow = head;
+	while (fast->next && fast->next->next)
+	{		
+		fast = fast->next->next;
+		slow = slow->next;
+		if (fast == slow)
+			return true;
+	}
+	return false;
+}
+
+/*
+203. Remove Linked List Elements
+Remove all elements from a linked list of integers that have value val.
+
+Input:  1->2->6->3->4->5->6, val = 6
+Output: 1->2->3->4->5
+*/
+struct ListNode* removeElements(struct ListNode* head, int val)
+{
+	/*		*** Really poweful solution ***
+	if (head == null) return null;
+	head.next = removeElements(head.next, val);
+	return head.val == val ? head.next : head;
+	*/
+
+
+	if (!head || head->val == val && !head->next)
+		return (struct ListNode*)NULL;
+	struct ListNode *curr_node = head;
+	struct ListNode *next_node = head->next;
+	while (next_node != NULL)
+	{
+		if (next_node->val == val)
+			curr_node->next = next_node->next;
+		else
+			curr_node = next_node;
+		next_node = next_node->next;
+	}
+	return head->val == val ? head->next : head;
+
+}
+/*
+234. Palindrome Linked List
+Given a singly linked list, determine if it is a palindrome.
+
+Input: 1->2		Output: false
+Input: 1->2->2->1		Output: true
+
+Follow up:
+Could you do it in O(n) time and O(1) space?
+*/
+bool isPalindrome(struct ListNode* head)	//over time limit
+{
+	if (!head || !head->next)
+		return true;
+	struct ListNode* fast = head;
+	struct ListNode* slow = head;
+	while (fast->next->next)
+	{
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+
+	fast = reverseList(slow->next);
+	while (fast->next);
+	{
+		if (fast->val != head->val)
+			return false;
+		fast = fast->next;
+		head = head->next;
+	}
+	return true;
+
+}
+/*
+160. Intersection of Two Linked Lists
+Write a program to find the node at which the intersection of two singly linked lists begins.
+For example, the following two linked lists:
+
+A:          a1 ¡÷ a2
+					¡û
+						c1 ¡÷ c2 ¡÷ c3
+					¡ù
+B:     b1 ¡÷ b2 ¡÷ b3
+begin to intersect at node c1.
+
+Notes:
+If the two linked lists have no intersection at all, return null.
+The linked lists must retain their original structure after the function returns.
+You may assume there are no cycles anywhere in the entire linked structure.
+Your code should preferably run in O(n) time and use only O(1) memory.
+*/
+struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB)	//!!!!!!!!!!!!!!!!!!!
+{
+	return 0;
 }

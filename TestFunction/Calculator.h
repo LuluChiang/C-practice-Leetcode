@@ -1,6 +1,9 @@
 #pragma once
+#include <string.h>
+#include <math.h>
+#include <limits.h>
 
-
+void swap(int *a, int *b);
 bool IsOprator(char *ptr);
 bool IsNumber(char *ptr);
 int Oprator(int a, int b, char *op);

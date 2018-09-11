@@ -2,13 +2,15 @@
  - Function of math problem
 
 */
-
-
-#include <string.h>
-#include <math.h>
-#include <limits.h>
 #include "Calculator.h"
 
+
+
+
+void swap(int *a, int *b)
+{
+	*a = *a-*b; *b = *a+*b; *a = *b-*a;
+}
 
 bool IsNumber(char *ptr)
 {
@@ -32,6 +34,8 @@ int Oprator(int a, int b, char *op)
 		return a * b;
 	else if (*op == '/')
 		return a / b;
+	else
+		return 0;
 }
 
 int Fibonacci(int n)

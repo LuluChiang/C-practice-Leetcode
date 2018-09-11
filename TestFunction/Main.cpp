@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include "Calculator.h"
-#include "LinkedList.h"
-
+//#include "Calculator.h"
+//#include "LinkedList.h"
+#include "Sort.h"
 
 #define MainExpress "1+2"
 #define postfix "123+="
@@ -18,16 +18,16 @@ int Calculator(char *post);
 
 int main()
 {
-	int result = 0;
-	char *sss[5] = {0x00};
-	memcpy(sss, "00000", 5);
+	int result = 0, a = 3, b = 6;
+	int ar_int[5] = { 9,5,4,7,2 };
+
 
 	printf("LeetCode Start:\r\n");
+	BubbleSort(5, ar_int);
+	for (int i = 0; i < 5; i++)
+		printf("ar[%d] = %d, \r\n", i, ar_int[i]);
+
 	
-	/*char express[] = MainExpress;
-	char *ptr = express;
-	int result = 0;
-	result = Calculator(strlen(express), express);*/
 
 
 	char *ptr = LeetCodeInput;
