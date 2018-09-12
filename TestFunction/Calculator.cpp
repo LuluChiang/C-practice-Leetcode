@@ -9,7 +9,11 @@
 
 void swap(int *a, int *b)
 {
-	*a = *a-*b; *b = *a+*b; *a = *b-*a;
+	if (*a == *b)		// otherwise, parameter a, b will be changed simultaneously
+		return;
+	*a = *a-*b; 
+	*b = *a+*b; 
+	*a = *b-*a;
 }
 
 bool IsNumber(char *ptr)

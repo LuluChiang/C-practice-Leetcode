@@ -7,6 +7,7 @@
 //#include "Calculator.h"
 //#include "LinkedList.h"
 #include "Sort.h"
+#include "Array.h"
 
 #define MainExpress "1+2"
 #define postfix "123+="
@@ -16,14 +17,16 @@
 
 int Calculator(char *post);
 
+
+#define numTestArray 4
 int main()
 {
 	int result = 0, a = 3, b = 6;
-	int ar_int[5] = { 9,5,4,7,2 };
+	int ar_int[numTestArray] = { 1,1,2,4 };
 
 
 	printf("LeetCode Start:\r\n");
-	BubbleSort(5, ar_int);
+	findDisappearedNumbers(ar_int, numTestArray ,&a);
 	for (int i = 0; i < 5; i++)
 		printf("ar[%d] = %d, \r\n", i, ar_int[i]);
 

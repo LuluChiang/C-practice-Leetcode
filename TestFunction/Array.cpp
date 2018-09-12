@@ -25,7 +25,6 @@ Input: [9,9,9]  Output: [1,0,0,0]
 */
 int* plusOne(int* digits, int digitsSize, int* returnSize) //still not good, waste time on reverse
 {
-
 	int *tempArray;
 	bool round = false;
 	tempArray = ReverseArray(digits, digitsSize, returnSize);
@@ -56,14 +55,13 @@ int* plusOne(int* digits, int digitsSize, int* returnSize) //still not good, was
 561. Array Partition I
 Given an array of 2n integers, your task is to group these integers into n pairs of integer, say (a1, b1), (a2, b2), ..., (an, bn) which makes sum of min(ai, bi) for all i from 1 to n as large as possible.
 
-Example 1:
 Input: [1,4,3,2]
-
 Output: 4
 Explanation: n is 2, and the maximum sum of pairs is 4 = min(1, 2) + min(3, 4).
 Note:
 n is a positive integer, which is in the range of [1, 10000].
-All the integers in the array will be in the range of [-10000, 10000].*/
+All the integers in the array will be in the range of [-10000, 10000].
+*/
 int arrayPairSum(int* nums, int numsSize) 
 {
 	int sum = 0;
@@ -101,7 +99,163 @@ Explanation: [4,-1,2,1] has the largest sum = 6.
 Follow up:
 If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 */
-int maxSubArray(int* nums, int numsSize)
+int maxSubArray(int* nums, int numsSize)	//try again
 {
+	int max = nums[0];	
+	int* func = (int*)malloc(sizeof(int)*numsSize);	//func(i): maxSubArray of nums[0] ~ nums[i]
+	func[0] = nums[0];
 
+	for (int i = 1; i < numsSize; i++)
+	{
+		if (func[i - 1] > 0)	//we know func[i-1] is worth to add in max
+			func[i] = func[i - 1] + nums[i];	
+		else
+			func[i] = nums[i];
+		max = max > func[i] ? max : func[i];
+	}
+	return max;
 }
+
+/*
+215. Kth Largest Element in an Array
+Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Input: [3,2,1,5,6,4] and k = 2
+Output: 5
+
+Input: [3,2,3,1,2,4,5,5,6] and k = 4
+Output: 4
+Note:
+You may assume k is always valid, 1 <= k <= array's length.
+*/
+int findKthLargest(int* nums, int numsSize, int k) 
+{
+	BubbleSort(numsSize, nums);
+	return nums[numsSize - k];
+}
+
+/*
+728. Self Dividing Numbers
+A self-dividing number is a number that is divisible by every digit it contains.
+For example, 128 is a self-dividing number because 128 % 1 == 0, 128 % 2 == 0, and 128 % 8 == 0.
+Also, a self-dividing number is not allowed to contain the digit zero.
+Given a lower and upper number bound, output a list of every possible self dividing number, including the bounds if possible.
+
+Input:
+left = 1, right = 22
+Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22]
+Note:
+The boundaries of each input argument are 1 <= left <= right <= 10000.
+*/
+bool selfDividing(int target)
+{
+	int digit, temp = target;
+	while (temp != 0)
+	{
+		digit = temp % 10;
+		if (digit == 0 || target%digit != 0)
+			return false;
+		temp = temp / 10;
+	}
+	return true;
+}
+int* selfDividingNumbers(int left, int right, int* returnSize)
+{
+	int cnt = 0;
+	int* rtnArray = (int*)malloc(sizeof(int));
+	for (; left <= right; left++)
+	{
+		if (selfDividing(left))
+		{
+			cnt++;
+			rtnArray = (int*)realloc(rtnArray, sizeof(int) * cnt);
+			rtnArray[cnt - 1] = left;
+		}
+	}
+	*returnSize = cnt;
+	return rtnArray;
+}
+
+/*
+628. Maximum Product of Three Numbers
+Given an integer array, find three numbers whose product is maximum and output the maximum product.
+
+Input: [1,2,3]			Output: 6
+Input: [1,2,3,4]		Output: 24
+*/
+int maximumProduct(int* nums, int numsSize) 
+{
+	BubbleSort(numsSize, nums);
+	int a = nums[numsSize - 1] * nums[numsSize - 2] * nums[numsSize - 3];
+	int b= nums[0] * nums[1] * nums[numsSize - 1];
+	return a > b ? a : b;
+}
+
+/*
+136. Single Number
+Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+Input: [2,2,1]			Output: 1
+Input: [4,1,2,1,2]		Output: 4
+*/
+int singleNumber(int* nums, int numsSize)
+{
+	int xor = 0;
+	for (int i = 0; i < numsSize; i++)
+		xor ^= nums[i];
+	return xor;
+}
+
+/*
+283. Move Zeroes
+Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+Input: [0,1,0,3,12]		Output: [1,3,12,0,0]
+Note:
+You must do this in-place without making a copy of the array.
+Minimize the total number of operations.
+*/
+void moveZeroes(int* nums, int numsSize) //try again
+{
+	for (int i = 0, leftmostzero = 0; i < numsSize; i++)
+		if (nums[i] != 0)
+		{
+			swap(&nums[i], &nums[leftmostzero]);
+			leftmostzero++;
+		}
+}
+
+/*
+448. Find All Numbers Disappeared in an Array
+Given an array of integers where 1 <= a[i] <= n (n = size of array), some elements appear twice and others appear once.
+Find all the elements of [1, n] inclusive that do not appear in this array.
+Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
+
+Input:[4,3,2,7,8,2,3,1]		Output:[5,6]
+*/
+int* findDisappearedNumbers(int* nums, int numsSize, int* returnSize) 
+{
+	int* rtnAr = (int*)malloc(sizeof(int) * (numsSize + 1));
+	//int rtnAr[5];
+	memset(rtnAr, 0x00, sizeof(int) * (numsSize + 1));
+	for (int i = 0; i < numsSize; i++)
+	{
+		rtnAr[nums[i]] = 1;
+	}
+	int count = 0;
+	for (int i = 1; i <= numsSize; i++)
+	{
+		if (rtnAr[i] == 0)
+			rtnAr[count++] = i;
+	}
+	*returnSize = count;
+	return rtnAr;
+}
+
+
+
+
+
+
