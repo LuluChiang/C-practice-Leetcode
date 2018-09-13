@@ -23,10 +23,11 @@ int main()
 {
 	int result = 0, a = 3, b = 6;
 	int ar_int[numTestArray] = { 1,1,2,4 };
-
-
+	char s[2] = { 'a','b' }, p[2] = { 'b','a' };
+	int* size = NULL;
+	printf("%c  ", *p);
 	printf("LeetCode Start:\r\n");
-	findDisappearedNumbers(ar_int, numTestArray ,&a);
+	findAnagrams(s, p, size);
 	for (int i = 0; i < 5; i++)
 		printf("ar[%d] = %d, \r\n", i, ar_int[i]);
 
