@@ -317,36 +317,36 @@ The substring with start index = 0 is "ab", which is an anagram of "ab".
 The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
 */
-bool IsAnagrams(char* s, int* alpha_p, int len)
-{
-	int alphabet[26] = { 0 };
-	for (int i = 0; i < len; i++)
-		alphabet[s[i] - 'a']++;
-	for (int i = 0; i < 26; i++)
-		if (alphabet[i] != alpha_p[i])
-			return false;
-	return true;
-}
-int* findAnagrams(char* s, char* p, int* returnSize)
-{
-	*returnSize = 0;
-	if (*s == NULL || *p == NULL || strlen(p)>strlen(s))
-		return NULL;
-	int alphabet_sub[26] = { 0 }, cnt = 0;
-	for (int i = 0; i < strlen(p); i++)
-		alphabet_sub[p[i] - 'a']++;
-	printf("%c", *p);
-
-	int* rtn_array = (int*)malloc(sizeof(int) * 0);
-	for (int i = 0; i <= strlen(s) - strlen(p); i++)
-	{
-		if (IsAnagrams(&s[i], alphabet_sub, strlen(p)))
-		{
-			rtn_array = (int*)realloc(rtn_array, sizeof(int)*++cnt);
-			rtn_array[cnt - 1] = i;
-		}
-	}
-	*returnSize = cnt;
-	return rtn_array;
-}
+//bool IsAnagrams(char* s, int* alpha_p, int len)
+//{
+//	int alphabet[26] = { 0 };
+//	for (int i = 0; i < len; i++)
+//		alphabet[s[i] - 'a']++;
+//	for (int i = 0; i < 26; i++)
+//		if (alphabet[i] != alpha_p[i])
+//			return false;
+//	return true;
+//}
+//int* findAnagrams(char* s, char* p, int* returnSize)
+//{
+//	*returnSize = 0;
+//	if (*s == NULL || *p == NULL || strlen(p)>strlen(s))
+//		return NULL;
+//	int alphabet_sub[26] = { 0 }, cnt = 0;
+//	for (int i = 0; i < strlen(p); i++)
+//		alphabet_sub[p[i] - 'a']++;
+//	printf("%c", *p);
+//
+//	int* rtn_array = (int*)malloc(sizeof(int) * 0);
+//	for (int i = 0; i <= strlen(s) - strlen(p); i++)
+//	{
+//		if (IsAnagrams(&s[i], alphabet_sub, strlen(p)))
+//		{
+//			rtn_array = (int*)realloc(rtn_array, sizeof(int)*++cnt);
+//			rtn_array[cnt - 1] = i;
+//		}
+//	}
+//	*returnSize = cnt;
+//	return rtn_array;
+//}
 

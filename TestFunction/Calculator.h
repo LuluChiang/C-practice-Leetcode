@@ -3,7 +3,10 @@
 #include <math.h>
 #include <limits.h>
 
+int max(int a, int b);
+int min(int a, int b);
 void swap(int *a, int *b);
+int AbsoluteValue(int n);
 bool IsOprator(char *ptr);
 bool IsNumber(char *ptr);
 int Oprator(int a, int b, char *op);

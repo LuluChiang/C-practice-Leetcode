@@ -21,14 +21,19 @@ int Calculator(char *post);
 #define numTestArray 4
 int main()
 {
+	int* size = NULL;
 	int result = 0, a = 3, b = 6;
 	int ar_int[numTestArray] = { 1,1,2,4 };
-	char s[2] = { 'a','b' }, p[2] = { 'b','a' };
-	int* size = NULL;
-	printf("%c  ", *p);
+	char* str1 = (char*)malloc(sizeof(char) * 2);	memcpy(str1, "ab", 2);
+	char* str2 = (char*)malloc(sizeof(char) * 2);	memcpy(str2, "ba", 2);
+	
+
+
 	printf("LeetCode Start:\r\n");
-	findAnagrams(s, p, size);
-	for (int i = 0; i < 5; i++)
+	int not = ~a;
+
+	//findAnagrams(str1, str2, size);
+	for (int i = 0; i < numTestArray; i++)
 		printf("ar[%d] = %d, \r\n", i, ar_int[i]);
 
 	

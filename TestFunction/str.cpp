@@ -62,3 +62,49 @@ bool isRectangleOverlap(int* rec1, int rec1Size, int* rec2, int rec2Size)
 {
 	return rec1[0]<rec2[2] && rec1[1]<rec2[3] && rec1[2]>rec2[0] && rec1[3]>rec2[1];
 }
+
+/*
+557. Reverse Words in a String III
+Given a string, you need to reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+
+Input: "Let's take LeetCode contest"
+Output: "s'teL ekat edoCteeL tsetnoc"
+Note: In the string, each word is separated by single space and there will not be any extra space in the string.
+*/
+void swap_char(char* a, char* b)
+{
+	if (*a == *b)		// otherwise, parameter a, b will be changed simultaneously
+		return;
+	*a = *a - *b;
+	*b = *a + *b;
+	*a = *b - *a;
+}
+char* reverseWords(char* s)
+{
+	int left = 0, len = strlen(s);
+	for (int space = 0; space <= len; space++)
+	{
+		if (s[space] == ' ' || s[space] == 0x00)
+		{
+			for (int i = space - 1; i > (space + left) / 2 - 1; i--)
+				swap_char(&s[i], &s[left + space - i - 1]);
+			left = space + 1;
+		}
+	}
+	return s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
