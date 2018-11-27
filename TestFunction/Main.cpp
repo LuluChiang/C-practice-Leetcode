@@ -16,7 +16,16 @@
 #define LeetCodeInput ""
 
 int Calculator(char *post);
-
+struct Test
+{
+	int a1;
+	int a2;
+	int a3;
+};
+int Calculator(int a)
+{
+	return 0;
+}
 
 #define numTestArray 4
 int main()
@@ -27,10 +36,16 @@ int main()
 	char* str1 = (char*)malloc(sizeof(char) * 2);	memcpy(str1, "ab", 2);
 	char* str2 = (char*)malloc(sizeof(char) * 2);	memcpy(str2, "ba", 2);
 	
+	//test
+	Test t = { 1,2,4 };
+	for (int i = 0; i < 3; i++)
+		printf("%p ", &t.a1+i );
+		//printf("%d ", *(&t.a1+i));
+	//test end
 
-
-	printf("LeetCode Start:\r\n");
-	int not = ~a;
+	printf("\r\nLeetCode Start:\r\n");
+	char c = 0x15;
+	int not = ~c;
 
 	//findAnagrams(str1, str2, size);
 	for (int i = 0; i < numTestArray; i++)
