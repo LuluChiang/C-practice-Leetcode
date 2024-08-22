@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-//#include "Calculator.h"
-//#include "LinkedList.h"
+#include "Calculator.h"
+#include "LinkedList.h"
 #include "Sort.h"
 #include "Array.h"
 
@@ -13,7 +13,7 @@
 #define postfix "123+="
 #define Infix "1+2+3"
 
-#define LeetCodeInput ""
+#define LeetCodeInput "1DS"
 
 int Calculator(char *post);
 struct Test
@@ -45,7 +45,7 @@ int main()
 
 	printf("\r\nLeetCode Start:\r\n");
 	char c = 0x15;
-	int not = ~c;
+	// int not = ~c;
 
 	//findAnagrams(str1, str2, size);
 	for (int i = 0; i < numTestArray; i++)
@@ -54,7 +54,7 @@ int main()
 	
 
 
-	char *ptr = LeetCodeInput;
+	char ptr[] = "SDF";//LeetCodeInput;
 	result = Calculator(ptr);
 	printf("result = %d\r\n", result);
 

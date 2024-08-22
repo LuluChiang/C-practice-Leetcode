@@ -4,7 +4,7 @@
 
 
 
-#define NULL (void*)0
+//#define NULL ((void*)0)
 // Definition for singly-linked list.
 // Size of int = 4, Size struct = 16
  struct ListNode 
